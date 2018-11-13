@@ -52,7 +52,6 @@
 #include "m_main.h"
 #include "game1.h"
 #include "game2.h"
-#include "game3.h"
 #include "stopwatch.h"
 #include "torch.h"
 #include "screenshot.h"

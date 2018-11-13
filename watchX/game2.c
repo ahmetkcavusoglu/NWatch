@@ -78,7 +78,7 @@ void game2_start()
 
 	display_setDrawFunc(draw);
 	buttons_setFuncs(btnUp, btnExit, btnDown);
-  
+
 	LOOP(CAR_COUNT, i)
 	{
 		cars[i].y = i * 16;

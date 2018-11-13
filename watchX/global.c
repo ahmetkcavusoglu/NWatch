@@ -56,7 +56,7 @@ void global_update()
 		return;
 	lastCheck = now;
 	
-  BOOL usbConnected = USB_CONNECTED();
+	BOOL usbConnected = USB_CONNECTED();
 	BOOL charging = CHARGING();
 
 	if(usbConnected != lastUsbConnected)
@@ -76,7 +76,6 @@ void global_update()
 			memcpy(&chargeFinishTime, &timeDate, sizeof(time_s));
 		}
 	}
-
 }
 
 // Dividing by 10 and mod 10 is done a lot in the code.

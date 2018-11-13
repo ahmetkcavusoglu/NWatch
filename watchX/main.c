@@ -28,10 +28,6 @@ void c_setup()
   clock_prescale_set(CPU_DIV);
 #endif
 
-#ifdef __AVR_ATmega32U4__
-  power_usart1_disable();
-#endif
-
   // power_twi_disable();
   // power_usart0_disable();
   // power_timer0_disable();

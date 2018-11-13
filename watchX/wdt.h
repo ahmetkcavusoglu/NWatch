@@ -9,7 +9,7 @@
 #ifndef WDT_H_
 #define WDT_H_
 
-#define WDT_ENABLE	0
+#define WDT_ENABLE		0
 #define WDT_DEBUG		0
 
 #if WDT_ENABLE

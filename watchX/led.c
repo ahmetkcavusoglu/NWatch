@@ -11,14 +11,11 @@
 #include "common.h"
 
 #ifdef __AVR_ATmega32U4__
-#ifndef PRTIM4
-#define PRTIM4 4
-#endif
 #ifndef power_timer4_enable
-#define power_timer4_enable()  (PRR1 &= (uint8_t)~(1 << PRTIM4))
+#define power_timer4_enable()  (PRR1 &= (uint8_t)~(1 << 4)) // PRTIM4
 #endif
 #ifndef power_timer4_disable
-#define power_timer4_disable() (PRR1 |= (uint8_t) (1 << PRTIM4))
+#define power_timer4_disable() (PRR1 |= (uint8_t) (1 << 4)) // PRTIM4
 #endif
 #endif
 

@@ -77,7 +77,7 @@
 #define PIN_DEBUG				PIN_DEBUG_NONE
 
 #ifdef __AVR_ATmega32U4__
-#define PIN_DEBUG_PIN  D7 // right led
+#define PIN_DEBUG_PIN  F7 // N/C
 #elif HW_VERSION == 3
 #define PIN_DEBUG_PIN	B6
 #else

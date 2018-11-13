@@ -30,7 +30,7 @@ void stopwatch_open()
 	menu_close();
 
 	display_setDrawFunc(draw);
-	buttons_setFuncs(btnReset, btnExit, btnStartStop);
+	buttons_setFuncs(btnReset, btnStartStop, btnExit);
 }
 
 bool stopwatch_active()

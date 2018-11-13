@@ -15,10 +15,6 @@
 #define USB_SENSE_P C6 // TODO
 #define CHRG_P      C6 // Charg State
 
-#define RTC_HALFSEC()  (!pinRead(RTC_INT_P))
-#define USB_CONNECTED() (USBSTA & _BV(VBUS))
-#define CHARGING()    (!pinRead(CHRG_P))
-
 #else
 
 #define RTC_INT_P	D2
@@ -33,12 +29,11 @@
 #define USB_SENSE_P	D3
 #define CHRG_P		D4
 #endif
-
-#define RTC_HALFSEC()  (!pinRead(RTC_INT_P))
-#define USB_CONNECTED() (pinRead(USB_SENSE_P))
-#define CHARGING()    (!pinRead(CHRG_P))
-
 #endif
+
+#define RTC_HALFSEC()	(!pinRead(RTC_INT_P))
+#define USB_CONNECTED()	(!pinRead(USB_SENSE_P))
+#define CHARGING()		(!pinRead(CHRG_P))
 
 void global_init(void);
 void global_update(void);

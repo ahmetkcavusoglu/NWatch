@@ -42,16 +42,6 @@ static const byte thingImg[] PROGMEM ={
 	0x02,0x1F,0x37,0x34,0x34,0x1C,0x0F,0x08,0x0B,0x0C,0x17,0x32,0x32,0x39,0x0F,
 };
 
-void draw_bitmap_set(image_s *img)
-{
-//  draw_bitmap(img->x, img->y, img->bitmap, img->width, img->height, img->invert, img->offsetY);
-}
-
-void draw_bitmap_s2(image_s *img)
-{
-  draw_bitmap(img->x, img->y, img->bitmap, img->width, img->height, img->invert, img->offsetY);
-}
-
 void game3_start()
 {
 	menu_close();

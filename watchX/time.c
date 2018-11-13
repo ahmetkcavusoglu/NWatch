@@ -27,13 +27,8 @@ void time_init()
 	pinPullup(RTC_INT_P, PU_EN);
 
 #if RTC_SRC != RTC_SRC_INTERNAL
-#ifdef __AVR_ATmega32U4__
-  EICRA |= _BV(ISC31);
-	EIMSK |= _BV(INT3);
-#else
-  EICRA |= _BV(ISC01);
-  EIMSK |= _BV(INT0);
-#endif
+	EICRA |= _BV(ISC01);
+	EIMSK |= _BV(INT0);
 #endif
 
 	time_wake();
@@ -356,11 +351,7 @@ static void getRtcTime()
 #if RTC_SRC == RTC_SRC_INTERNAL
 ISR(TIMER2_OVF_vect)
 #else
-#ifdef __AVR_ATmega32U4__
-ISR(INT3_vect)
-#else
 ISR(INT0_vect)
-#endif
 #endif
 {
 	update = true;

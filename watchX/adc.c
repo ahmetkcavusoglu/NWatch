@@ -9,7 +9,7 @@
 #include "common.h"
 
 #ifdef __AVR_ATmega32U4__
-#define ADC_REF (_BV(REFS0)|_BV(REFS1)) // 2.56V internal ref
+#define ADC_REF (_BV(REFS0)) // External VCC ref
 #elif HW_VERSION == 1
 #define ADC_REF (_BV(REFS0)|_BV(REFS1)) // 1.1V internal ref
 #else
@@ -18,10 +18,6 @@
 
 void adc_init()
 {
-   // Digital Input Disable Register (for watchX only)
-#ifdef __AVR_ATmega32U4__
-  SET_BITS(DIDR2, ADC9D);
-#endif
 	// ADC registers
 	LOAD_BITS(ADCSRA, ADPS2, ADPS1, ADPS0); // 128 prescaler = 62.5KHz @ 8MHz
 	ADMUX = ADC_REF; 

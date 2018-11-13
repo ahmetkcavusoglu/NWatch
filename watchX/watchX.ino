@@ -17,12 +17,11 @@ extern "C"
 
 void setup()
 {
-  Serial.begin(9600);
   c_setup();
 }
 
 void loop()
-{
+{ 
   c_loop();
 }
 

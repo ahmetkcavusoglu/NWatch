@@ -12,12 +12,6 @@
 #ifdef __AVR_ATmega32U4__
 #undef  sleep_bod_disable()
 #define sleep_bod_disable()
-// No peripherals are in use other than Timer0, Timer3, usart, and usb
-#define IS_PWR_SAVE_READY() false
-#else
-// No peripherals are in use other than Timer2
-#define PRR_BITS (_BV(PRTWI)|_BV(PRTIM0)|_BV(PRTIM1)|_BV(PRSPI)|_BV(PRUSART0)|_BV(PRADC))
-#define IS_PWR_SAVE_READY() (((PRR & ~PRR_BITS) == PRR_BITS))
 #endif
 
 #define BATTERY_CUTOFF	2800
@@ -95,13 +89,13 @@ void pwrmgr_update()
 {
 	batteryCutoff();
 	
-  bool idle = (UDADDR != 0); // if USB Configuard, no sleep
+	bool idle = false;
 	LOOPR(PWR_ACTIVE_COUNT, i)
-  {
- 		if(active[i] == PWR_STATE_BUSY) // Something busy, no sleep stuff
-	 		return;
-	  else if(active[i] == PWR_STATE_IDLE)
-		  idle = true;
+	{
+		if(active[i] == PWR_STATE_BUSY) // Something busy, no sleep stuff
+			return;
+		else if(active[i] == PWR_STATE_IDLE)
+			idle = true;
 	}
 
 	bool buttonsActive = buttons_isActive();
@@ -117,7 +111,11 @@ void pwrmgr_update()
 		else // Idle sleep mode
 #endif
 		{
-      if(IS_PWR_SAVE_READY())
+#ifdef __AVR_ATmega32U4__
+      if(PRR0 == (_BV(PRTWI)|_BV(PRTIM0)|_BV(PRTIM1)|_BV(PRSPI)|_BV(PRADC))) // No peripherals are in use other than Timer2
+#else
+      if(PRR == (_BV(PRTWI)|_BV(PRTIM0)|_BV(PRTIM1)|_BV(PRSPI)|_BV(PRUSART0)|_BV(PRADC))) // No peripherals are in use other than Timer2
+#endif
 				set_sleep_mode(SLEEP_MODE_PWR_SAVE); // Also disable BOD?
 			else
 				set_sleep_mode(SLEEP_MODE_IDLE);
@@ -139,9 +137,7 @@ void pwrmgr_update()
 #endif
 		{
 			// Shutdown
-#ifdef __AVR_ATmega32U4__
-      USBCON |= _BV(FRZCLK);
-#endif
+
 			if(userState == USER_ACTIVE)
 				userSleep();
 
@@ -156,7 +152,7 @@ void pwrmgr_update()
 			cli();
 			sleep_enable();
 			sleep_bod_disable();
-      sei();
+			sei();
 			sleep_cpu();
 			sleep_disable();
 
@@ -170,13 +166,6 @@ void pwrmgr_update()
 			//set_sleep_mode(SLEEP_MODE_IDLE);
 		}
 	}
-#ifdef __AVR_ATmega32U4__
-  // USB
-  if (USBSTA & _BV(VBUS))
-    USBCON &= ~_BV(FRZCLK);
-  else
-    USBCON |= _BV(FRZCLK);
-#endif
 }
 
 void pwrmgr_setState(pwr_active_t thing, pwr_state_t state)

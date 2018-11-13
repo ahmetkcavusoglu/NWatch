@@ -13,10 +13,10 @@
 #include "common.h"
 
 #ifdef __AVR_ATmega32U4__
-#define ADC_CHANNEL		0x21 // ADC9
+#define ADC_CHANNEL		0x21
 #define DIVIDER				D4
 #else
-#define ADC_CHANNEL		0x06 // ADC6
+#define ADC_CHANNEL		6
 #define DIVIDER				C0
 #endif
 
@@ -28,11 +28,11 @@
 #ifdef __AVR_ATmega32U4__
 #define R1      10000 // R1 resistance
 #define R2      10000 // R2 resistance
-#define VREF    2560  // Reference voltage (2.56V Internal ref)
+#define VREF    3300  // Reference voltage (VCC)
 #elif HW_VERSION == 1
 #define R1			7500 // R1 resistance
 #define R2			2700 // R2 resistance
-#define VREF		1100 // Reference voltage (1.1V Internal ref)
+#define VREF		1100 // Reference voltage (Internal)
 #else
 #define R1			10000 // R1 resistance
 #define R2			10000 // R2 resistance
