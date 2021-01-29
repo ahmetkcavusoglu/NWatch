@@ -13,17 +13,8 @@ void spi_init(void);
 void spi_enable(void);
 void spi_disable(void);
 
-inline byte spi_transfer(byte data)
-{
-	SPDR = data;
-	loop_until_bit_is_set(SPSR, SPIF);
-	return SPDR;
-}
+void spi_transfer_nr(byte data);
+byte spi_transfer(byte data);
 
-inline void spi_transfer_nr(byte data)
-{
-	SPDR = data;
-	loop_until_bit_is_set(SPSR, SPIF);
-}
 
 #endif /* SPI_H_ */
