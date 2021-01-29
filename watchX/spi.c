@@ -51,3 +51,17 @@ void spi_disable()
 {
 	power_spi_disable();
 }
+
+
+byte spi_transfer(byte data)
+{
+  SPDR = data;
+  loop_until_bit_is_set(SPSR, SPIF);
+  return SPDR;
+}
+
+void spi_transfer_nr(byte data)
+{
+  SPDR = data;
+  loop_until_bit_is_set(SPSR, SPIF);
+}
